@@ -249,14 +249,14 @@ void DelNode1(Node1 *&head, int pos)
      {
           Node1 *tem = head;
           head = head->next;
-          head->prev = NULL;
-          tem->next = NULL;
+          head->prev = nullptr;
+          tem->next = nullptr;
           delete tem;
           return;
      }
 
      Node1 *cur = head;
-     Node1 *prv = NULL;
+     Node1 *prv = nullptr;
      int cnt = 1;
      while (cnt < pos)
      {
@@ -265,15 +265,15 @@ void DelNode1(Node1 *&head, int pos)
           cnt++;
      }
 
-     if (cur == NULL)
+     if (cur == nullptr)
      {
           return;
      }
 
      prv->next = cur->next;
      cur->next->prev = prv;
-     cur->next = NULL;
-     cur->prev = NULL;
+     cur->next = nullptr;
+     cur->prev = nullptr;
      delete cur;
 }
 
