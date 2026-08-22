@@ -12,14 +12,11 @@ int main()
     line.push('B');
     line.push('C');
     line.push('W');
-
-    // Same functions as previous DS
     cout << line.size() << "\t" << line.empty() << "\n";
     cout << line.front() << "\t" << line.back() << "\n";
     line.front() = 'Y';
     line.back() = 'D';
     cout << line.front() << "\t" << line.back() << "\n\n";
-
     line.pop(); // remove element at front
     cout << line.front() << "\n\n";
 
@@ -49,7 +46,6 @@ int main()
         minh.pop();
     }
     cout << "\n\n";
-
     cout << minh.empty(); // gives 1 = if the heap is empty
 
     // Double-Ended Queue : Insertion & Deletion from both side
@@ -59,19 +55,15 @@ int main()
         cout << a << "\t";
     }
     cout << "\n\n";
-
-    // Same functions as previous DS
     cout << line[1] << "\t" << line.at(3) << "\n";
     cout << line.front() << "\t" << line.back() << "\n";
     line.at(2) = 'R';
     cout << line.at(2) << "\n";
     cout << line.size() << "\t";
     cout << line.empty() << "\n\n";
-
     line.push_back('Y');  // add element at end
     line.push_front('O'); // add element at front
     cout << line.front() << "\t" << line.back() << "\n\n";
-
     line.pop_back();  // remove the last element
     line.pop_front(); // remove the first element
     cout << line.front() << "\t" << line.back() << "\n\n";

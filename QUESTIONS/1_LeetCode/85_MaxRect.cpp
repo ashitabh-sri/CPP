@@ -1,52 +1,99 @@
 class Solution
 {
-public:
-    int largestRectangleArea(vector<int> &heights)
+    vector<int> nextSmall(vector<int> arr, int n)
     {
+        vector<int> ans(n);
+
         stack<int> st;
-        heights.push_back(0); // sentinel
-        int maxArea = 0;
+        st.push(-1);
 
-        for (int i = 0; i < heights.size(); i++)
+        for (int i = n - 1; i >= 0; i--)
         {
-            while (!st.empty() && heights[i] < heights[st.top()])
+            while (st.top() != -1 && arr[st.top()] >= arr[i])
             {
-                int h = heights[st.top()];
                 st.pop();
-
-                int width = st.empty() ? i : i - st.top() - 1;
-                maxArea = max(maxArea, h * width);
             }
+            ans[i] = st.top();
             st.push(i);
         }
 
-        heights.pop_back(); // clean up
-        return maxArea;
+        return ans;
     }
-
-    int maximalRectangle(vector<vector<char>> &matrix)
+    vector<int> prevSmall(vector<int> arr, int n)
     {
-        if (matrix.empty())
-            return 0;
+        vector<int> ans(n);
 
-        int rows = matrix.size();
-        int cols = matrix[0].size();
-        vector<int> heights(cols, 0);
+        stack<int> st;
+        st.push(-1);
 
-        int maxArea = 0;
-
-        for (int r = 0; r < rows; r++)
+        for (int i = 0; i < n; i++)
         {
-            for (int c = 0; c < cols; c++)
+            while (st.top() != -1 && arr[st.top()] >= arr[i])
             {
-                if (matrix[r][c] == '1')
-                    heights[c]++;
-                else
-                    heights[c] = 0;
+                st.pop();
             }
-            maxArea = max(maxArea, largestRectangleArea(heights));
+            ans[i] = st.top();
+            st.push(i);
         }
 
-        return maxArea;
+        return ans;
+    }
+
+    int largestRectangleArea(vector<int> arr, int n)
+    {
+
+        vector<int> nxt = nextSmall(arr, n); // gets indices for next smaller element
+        vector<int> pre = prevSmall(arr, n); // gets indices for previous smaller element
+
+        int area = INT_MIN;
+        for (int i = 0; i < n; i++)
+        {
+            int len = arr[i];
+
+            if (nxt[i] == -1)
+            {
+                nxt[i] = n; // for correct right boundary
+            }
+
+            int wid = nxt[i] - pre[i] - 1; // gives the width of max rectangle
+
+            area = max(area, len * wid); // update for maximum rect area
+        }
+
+        return area;
+    }
+
+public:
+    int maximalRectangle(vector<vector<char>> &matrix)
+    {
+        int area = INT_MIN;
+
+        int n = matrix.size();    // rows
+        int m = matrix[0].size(); // cols
+
+        vector<int> his(m, 0); // for efficient integer calculations for rect
+
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 0; j < m; j++)
+            {
+                if (matrix[i][j] == '1') // if 1, then add with previous rectangle
+                {
+                    his[j]++;
+                }
+                else
+                {
+                    his[j] = 0; // else remove from rectangle
+                }
+            }
+
+            int cura = largestRectangleArea(his, m); // update histogram area of each row
+            area = max(area, cura);                  // maximum area of rectangle
+        }
+
+        return area;
     }
 };
+
+// TC = O(n*m)
+// SC = O(m)

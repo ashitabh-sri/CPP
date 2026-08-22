@@ -4,7 +4,7 @@ using namespace std;
 
 int main()
 {
-     // Stack : Last In Last Out
+     // Stack : Last In First Out
      stack<string> cake;
      cake.push("Bread"); // add elements at Top
      cake.push("Cream");
@@ -15,11 +15,11 @@ int main()
      cout << cake.size() << "\t" << cake.empty() << "\n\n";
 
      cout << cake.top() << "\t"; // gives element at top
-     cake.top() = "Cherries"; // overwriting value with top
+     cake.top() = "Cherries";    // overwriting value with top
      cout << cake.top() << "\n";
-     
+
      cake.pop(); // remove element at top
      cout << cake.top() << "\n\n";
-     
+
      return 0;
 }

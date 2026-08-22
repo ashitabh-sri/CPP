@@ -3,31 +3,31 @@ class Solution
 public:
     bool isValid(string s)
     {
-        stack<char> stk;
+        stack<char> st;
+
         for (char c : s)
         {
             if (c == '(' || c == '{' || c == '[')
             {
-                stk.push(c);
+                st.push(c);
+            }
+            else if (st.empty())
+            {
+                return false;
             }
             else
             {
-                if (stk.empty())
+                if (c == ')' && st.top() == '(')
                 {
-                    return false;
+                    st.pop();
                 }
-
-                if (stk.top() == '(' && c == ')')
+                else if (c == '}' && st.top() == '{')
                 {
-                    stk.pop();
+                    st.pop();
                 }
-                else if (stk.top() == '{' && c == '}')
+                else if (c == ']' && st.top() == '[')
                 {
-                    stk.pop();
-                }
-                else if (stk.top() == '[' && c == ']')
-                {
-                    stk.pop();
+                    st.pop();
                 }
                 else
                 {
@@ -36,7 +36,7 @@ public:
             }
         }
 
-        return stk.empty();
+        return st.empty();
     }
 };
 

@@ -1,5 +1,3 @@
-// https://www.geeksforgeeks.org/problems/rat-in-a-maze-problem/1
-
 class Solution
 {
 private:
@@ -77,3 +75,5 @@ public:
         return res;
     }
 };
+
+// https://www.geeksforgeeks.org/problems/rat-in-a-maze-problem/1
