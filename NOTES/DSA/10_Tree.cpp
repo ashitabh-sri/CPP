@@ -79,13 +79,13 @@ void lot(node *root)
 // Reverse Level Order Traversal
 // void reverseLOT(node *root)
 // {
-//     queue<node*> q;
-//     stack<vector<node*>> st;
+//     queue<node*> q; // for iteration
+//     stack<vector<node*>> st; // for reverse order of levels
 //     q.push(root);
 //     while (!q.empty())
 //     {
 //         int n = q.size();
-//         vector<node*> level;
+//         vector<node*> level; // stores current level
 //         while (n--)
 //         {
 //             node* curr = q.front();
@@ -109,7 +109,7 @@ void lot(node *root)
 //     }
 // }
 // TC = O(n)
-// SC = O(w), max width of tree, O(n) for wide tree
+// SC = O(n)
 
 // In Order Traversal
 // L N R : Left Node Right
