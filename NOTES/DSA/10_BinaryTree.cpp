@@ -13,8 +13,7 @@ public:
     node(int v)
     {
         val = v;
-        left = nullptr;
-        right = nullptr;
+        left = right = nullptr;
     }
 };
 
@@ -40,7 +39,7 @@ node *makeBT(node *root)
     return root;
 }
 
-// Level Order Traversal
+// Level Order Traversal : BFS (Breadth First Search) on Tree
 void lot(node *root)
 {
     queue<node *> ord;
@@ -111,7 +110,7 @@ void lot(node *root)
 // TC = O(n)
 // SC = O(n)
 
-// In Order Traversal
+// In Order Traversal : DFS (Depth First Search)
 // L N R : Left Node Right
 // Recursive Version
 void iot(node *root)
@@ -143,7 +142,47 @@ void iot(node *root)
 // TC = O(n)
 // SC = O(h), h = height of tree, O(n) for skewed tree
 
-// Pre Order Traversal
+// Morris Traversal for In Order
+vector<int> inOrder(node *root)
+{
+    vector<int> res;
+    node *curr = root;
+
+    while (curr != nullptr)
+    {
+        if (curr->left == nullptr) // // If no left child
+        {
+            res.push_back(curr->data); // visit this node
+            curr = curr->right;        // and go right
+        }
+        else
+        {
+            // Find the inorder predecessor of curr = rightmost node of left subtree / last node to visit
+            Node *prev = curr->left;
+            while (prev->right != nullptr && prev->right != curr)
+            {
+                prev = prev->right; // keeps going right until..
+            }
+
+            if (prev->right == nullptr) // found the predecessor
+            {
+                prev->right = curr; // connect it with curr
+                curr = curr->left;  // start traversing left subtree
+            }
+            else // reached to curr again
+            {
+                prev->right = nullptr;     // break the link prev -> curr to restore tree
+                res.push_back(curr->data); // visit the curr node
+                curr = curr->right;        // start traversing to right subtree
+            }
+        }
+    }
+    return res;
+}
+// TC = O(n)
+// SC = O(1)
+
+// Pre Order Traversal : DFS
 // N L R : Node Left Right
 // Recursive Version
 void pre(node *root)
@@ -173,7 +212,7 @@ void pre(node *root)
 // TC = O(n)
 // SC = O(h)
 
-// Post Order Traversal
+// Post Order Traversal : DFS
 // L R N : Left Right Node
 // Recursive Version
 void post(node *root)
@@ -257,10 +296,22 @@ int main()
     cout << "In Order Traversal: \n";
     iot(root);
 
-    cout << "\nPre Order Traversal: \n";
+    Node *root1 = new Node(1);
+    root->left = new Node(2);
+    root->right = new Node(3);
+    root->left->left = new Node(4);
+    root->left->right = new Node(5);
+    vector<int> res = inOrder(root1);
+    cout << "\nUsing Morris Traversal for In Order:\n";
+    for (int data : res)
+    {
+        cout << data << " ";
+    }
+
+    cout << "\nPre Order Traversal:\n";
     pre(root);
 
-    cout << "\nPost Order Traversal: \n";
+    cout << "\nPost Order Traversal:\n";
     post(root);
 
     root = nullptr;
