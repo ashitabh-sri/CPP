@@ -110,19 +110,19 @@ void lot(node *root)
 // TC = O(n)
 // SC = O(n)
 
-// In Order Traversal : DFS (Depth First Search)
+// In Order Traversal : DFS (Depth First Search) on Tree
 // L N R : Left Node Right
 // Recursive Version
-void iot(node *root)
+void inorder(node *root)
 {
     if (root == nullptr)
     {
         return;
     }
 
-    iot(root->left);
+    inorder(root->left);
     cout << root->val << " ";
-    iot(root->right);
+    inorder(root->right);
 }
 // Iterative Version
 // stack<Node*> st;
@@ -143,40 +143,43 @@ void iot(node *root)
 // SC = O(h), h = height of tree, O(n) for skewed tree
 
 // Morris Traversal for In Order
-vector<int> inOrder(node *root)
+vector<int> MorrisInorder(Node *root)
 {
     vector<int> res;
-    node *curr = root;
+    Node *curr = root;
 
     while (curr != nullptr)
     {
-        if (curr->left == nullptr) // // If no left child
+        if (curr->left == nullptr) // Case 1: No left subtree
         {
-            res.push_back(curr->data); // visit this node
-            curr = curr->right;        // and go right
+            res.push_back(curr->data); // Visit curr
+            curr = curr->right;        // Move right using link
         }
         else
         {
-            // Find the inorder predecessor of curr = rightmost node of left subtree / last node to visit
+            // Find inorder predecessor:
+            // rightmost node in curr's left subtree
             Node *prev = curr->left;
             while (prev->right != nullptr && prev->right != curr)
             {
-                prev = prev->right; // keeps going right until..
+                prev = prev->right;
             }
 
-            if (prev->right == nullptr) // found the predecessor
+            if (prev->right == nullptr) // Case 2: First time reaching curr
             {
-                prev->right = curr; // connect it with curr
-                curr = curr->left;  // start traversing left subtree
+                prev->right = curr; // Create temporary link
+                curr = curr->left;  // Go to left subtree
             }
-            else // reached to curr again
+            else // Case 3: Returning to curr through the link
             {
-                prev->right = nullptr;     // break the link prev -> curr to restore tree
-                res.push_back(curr->data); // visit the curr node
-                curr = curr->right;        // start traversing to right subtree
+                prev->right = nullptr; // Remove link
+
+                res.push_back(curr->data); // Visit curr
+                curr = curr->right;        // Move to right subtree
             }
         }
     }
+
     return res;
 }
 // TC = O(n)
@@ -185,7 +188,7 @@ vector<int> inOrder(node *root)
 // Pre Order Traversal : DFS
 // N L R : Node Left Right
 // Recursive Version
-void pre(node *root)
+void preorder(node *root)
 {
     if (root == nullptr)
     {
@@ -193,8 +196,8 @@ void pre(node *root)
     }
 
     cout << root->val << " ";
-    pre(root->left);
-    pre(root->right);
+    preorder(root->left);
+    preorder(root->right);
 }
 // Iterative Version
 // stack<Node*> st;
@@ -215,15 +218,15 @@ void pre(node *root)
 // Post Order Traversal : DFS
 // L R N : Left Right Node
 // Recursive Version
-void post(node *root)
+void postorder(node *root)
 {
     if (root == nullptr)
     {
         return;
     }
 
-    post(root->left);
-    post(root->right);
+    postorder(root->left);
+    postorder(root->right);
     cout << root->val << " ";
 }
 // Iterative Version
@@ -294,14 +297,9 @@ int main()
     lot(root);
 
     cout << "In Order Traversal: \n";
-    iot(root);
+    inorder(root);
 
-    Node *root1 = new Node(1);
-    root->left = new Node(2);
-    root->right = new Node(3);
-    root->left->left = new Node(4);
-    root->left->right = new Node(5);
-    vector<int> res = inOrder(root1);
+    vector<int> res = Morinorder(root);
     cout << "\nUsing Morris Traversal for In Order:\n";
     for (int data : res)
     {
@@ -309,10 +307,10 @@ int main()
     }
 
     cout << "\nPre Order Traversal:\n";
-    pre(root);
+    preorder(root);
 
     cout << "\nPost Order Traversal:\n";
-    post(root);
+    postorder(root);
 
     root = nullptr;
     makeBTlev(root);

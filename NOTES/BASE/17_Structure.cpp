@@ -20,7 +20,7 @@ struct Num
 private:
     int p, q;
 
-public:
+public:               // default
     Num(int a, int b) // Constructor
     {
         p = a;

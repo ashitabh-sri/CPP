@@ -109,3 +109,5 @@ public:
 
 // TC = O(n) average
 // SC = O(n)
+
+// https://www.geeksforgeeks.org/problems/burning-tree/1
