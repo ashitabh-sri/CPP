@@ -56,7 +56,7 @@ int main()
     for (int i = 0; i < n; i++)
     {
         cout << maxh.top() << "\t"; // gives top element = largest element
-        maxh.pop();                 // removes element
+        maxh.pop();                 // removes top element
     }
     cout << "\n\n";
 
