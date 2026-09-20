@@ -7,9 +7,9 @@ using namespace std;
 int main()
 {
      // Output
-     cout << "This is Ashitabh Srivastava!";                                   // << : Insertion operator to show data on screen
+     cout << "This is Ashitabh Srivastava!";                                   // << : Insertion operator to show data on console
      cout << " Learning C++ language.." << endl;                               // end of line
-     cout << "Another\tEscape sequence, \\Back Slash, \"Double Quotes\" \n\n"; // n - newline, t = tab
+     cout << "Another\tEscape sequence, \\Back Slash, \"Double Quotes\" \n\n"; // \n - newline character, \t = tab character
 
      // Input
      cout << "\tPrinting from User Input :-\n";
@@ -35,7 +35,7 @@ int main()
 
      // Boolean Manipulators
      bool answer = true;
-     cout << boolalpha << "Is C++ fun: " << answer << endl;          // true/false
+     cout << boolalpha << "Is C++ fun: " << answer << endl;      // true/false
      cout << noboolalpha << "Rank of C++: " << answer << "\n\n"; // 1/0
 
      // Alignment & Sign Manipulators
@@ -53,9 +53,9 @@ int main()
      // Input stream Modifiers
      cin.ignore(numeric_limits<streamsize>::max(), '\n');
      int a;
-     a = cin.get();//can take newline, tab and space as input
+     a = cin.get(); // can take newline, tab and space as input
      cout << "Value provided by User: " << a << "\n\n";
-     
+
      cin.ignore(numeric_limits<streamsize>::max(), '\n');
      string fullName;
      cout << "Type your Full Name: ";
@@ -78,7 +78,7 @@ int main()
      if (n1 == 0)
      {
           cerr << "Error!! Are You even Listening??" << "\n\n"; // immediate display of error
-          return 1;                                           // exit the program with error code 1
+          return 1;                                             // exit the program with error code 1
      }
      else
      {
