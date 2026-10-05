@@ -3,6 +3,38 @@
 #include <map>
 using namespace std;
 
+// Hashing: Maps a key to an index using a hash function for fast lookup.
+// Hash Function: Converts a key into a valid table index. Should be fast, deterministic and distribute keys uniformly.
+// Collision: When two different keys map to the same index.
+
+// Collision Handling:
+// Chaining: Multiple elements stored at the same index.
+// Open Addressing: Find another empty slot.
+// Load Factor: Number of elements / Table size, LF < 0.7
+// Rehashing: Increase table size and reinsert elements when the table becomes too full.
+
+// Complexity
+// unordered_map / unordered_set
+// Search → O(1) average, O(n) worst case
+// Insert → O(1) average, O(n) worst case
+// Delete  → O(1) average, O(n) worst case
+
+// map / set
+// Search → O(log n)
+// Insert → O(log n)
+// Delete  → O(log n)
+
+// ⭐ Interview Must-Know
+// Hash Function
+//       ↓
+//     Index
+//       ↓
+//    Collision
+//       ↓
+// Collision Handling
+//       ↓
+//  O(1) Average
+
 int main()
 {
      // Map : stores unique Key/Value pairs
@@ -16,11 +48,11 @@ int main()
      cout << '\n';
 
      // map: data type of key = int, double, pair<int, int>
-     // unordered_map - int, double, string
+     // unordered_map : int, double, string
 
      map<int, string> suspect = {{101, "Unknown"}, {213, "Ashitabh Srivastava"}, {804, "Pranaw Prakash"}, {102, "Deceased"}}; // Sorted in Ascending order as per key by default
-     cout << "Suspect 213: " << suspect[101] << '\n';      // accessing value - by key
-     cout << "Sespect 084: " << suspect.at(102) << "\n\n"; // safer access for out of bounds
+     cout << "Suspect 213: " << suspect[101] << '\n';                                                                         // accessing value - by key
+     cout << "Sespect 084: " << suspect.at(102) << "\n\n";                                                                    // safer access for out of bounds
 
      suspect[410] = "Anshuman Srivastava"; // add element by key
      suspect.insert({811, "Harsh Gupta"}); // add element as unit
@@ -46,7 +78,8 @@ int main()
      cout << '\n';
 
      auto it = suspect1.find(103);
-     for(auto i = it; i != suspect1.end(); i++){
+     for (auto i = it; i != suspect1.end(); i++)
+     {
           cout << (*i).first << '\n';
      }
      cout << '\n';

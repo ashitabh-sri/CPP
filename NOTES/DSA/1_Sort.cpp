@@ -311,6 +311,48 @@ void mergesort(vector<int> &arr, int beg, int end)
 
 // Heap Sort - In the File : 12_Heaps.cpp
 
+// Bucket Sort - Stable (if sorting inside each bucket is stable)
+// Best suited for uniformly distributed values in a known range
+void bucketSort(vector<float> &arr)
+{
+    if (arr.empty())
+    {
+        return;
+    }
+
+    int n = arr.size();
+
+    // Create n empty buckets
+    // Bucket index represents the range in which the element falls
+    vector<vector<float>> bucket(n);
+
+    // Distribute elements into appropriate buckets
+    for (float x : arr)
+    {
+        int index = x * n;
+        bucket[index].push_back(x);
+    }
+
+    // Sort each individual bucket
+    for (int i = 0; i < n; i++)
+    {
+        sort(bucket[i].begin(), bucket[i].end());
+    }
+
+    // Combine all buckets back into the original array
+    int index = 0;
+
+    for (int i = 0; i < n; i++)
+    {
+        for (float x : bucket[i])
+        {
+            arr[index++] = x;
+        }
+    }
+}
+// TC = O(n^2), avg O(n + k)
+// SC = O(n + k)
+
 int main()
 {
     int arr[26] = {5, 7, 2, 7, 7, 2, 2, 7, 8, 9, 2, 0, 4, 7, 2, 2, 1, 7, 8, 6, 5, 3, 3, 1, 2, 2};
@@ -341,6 +383,14 @@ int main()
     mergesort(arr4, 0, 11);
     cout << "\nMerge Sorted: ";
     print(arr4);
+
+    vector<float> arr5 = {0.42, 0.32, 0.23, 0.52, 0.25, 0.47, 0.51};
+    bucketSort(arr5);
+    cout << "\nBucket Sorted: ";
+    for (float x : arr5)
+    {
+        cout << x << " ";
+    }
 
     return 0;
 }
