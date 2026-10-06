@@ -4,14 +4,10 @@ public:
     string longestCommonPrefix(vector<string> &strs)
     {
         string res = "";
-
         int n = strs.size();
         const string &st1 = strs[0];
-        if (n == 1)
-        {
-            return st1;
-        }
         int n1 = st1.size();
+
         for (int i = 0; i < n1; i++)
         { // First String Size = Maximum Longest Common Prefix Size
             for (int j = 1; j < n; j++)
